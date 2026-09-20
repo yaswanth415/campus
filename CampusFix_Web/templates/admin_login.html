@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Admin Login{% endblock %}
+{% block content %}
+<div class="login-wrap">
+    <form class="login-card" method="post">
+        <div class="logo big">CF</div>
+        <h2>ADMIN ACCESS</h2>
+        <p>Status changes and maintenance records are restricted to the administrator.</p>
+        <label>Username
+            <input name="username" autocomplete="username" required>
+        </label>
+        <label>Password
+            <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn full" type="submit">Sign in as Admin</button>
+    </form>
+</div>
+{% endblock %}

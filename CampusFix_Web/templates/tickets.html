@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}All Tickets{% endblock %}
+{% block content %}
+<div class="section-head">
+    <div>
+        <h2>ALL TICKETS</h2>
+        <p>Search by complaint ID, student, category or building.</p>
+    </div>
+</div>
+
+<form class="searchbar" method="get">
+    <input name="q" value="{{ q }}" placeholder="e.g. CMP003, Electrical, Block A">
+    <button class="primary-btn" type="submit">Search</button>
+    {% if q %}<a class="outline-btn" href="{{ url_for('tickets') }}">Clear</a>{% endif %}
+</form>
+
+<div class="table-card">
+<table>
+<thead><tr>
+    <th>Ticket</th><th>Student</th><th>Category</th><th>Building</th><th>Priority</th><th>Status</th><th>Date</th>
+</tr></thead>
+<tbody>
+{% for t in tickets %}
+<tr>
+    <td><a class="ticket-link" href="{{ url_for('ticket_detail', complaint_id=t['complaint_id']) }}">{{ t['complaint_id'] }}</a></td>
+    <td>{{ t['student_name'] }}</td>
+    <td>{{ t['category'] }}</td>
+    <td>{{ t['building'] }}</td>
+    <td><span class="priority {{ t['priority']|lower }}">{{ t['priority'] }}</span></td>
+    <td><span class="status {{ t['status']|replace(' ','-')|lower }}">{{ t['status'] }}</span></td>
+    <td>{{ t['date'] }}</td>
+</tr>
+{% else %}
+<tr><td colspan="7" class="empty">No complaints found.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

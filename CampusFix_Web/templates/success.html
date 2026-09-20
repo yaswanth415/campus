@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Complaint Registered{% endblock %}
+{% block content %}
+<div class="success-card">
+    <div class="success-icon">✓</div>
+    <h2>Complaint Registered Successfully</h2>
+    <p>Your complaint has been recorded with status <b>Pending</b>.</p>
+    <div class="ticket-number">{{ complaint_id }}</div>
+    <div class="hero-buttons">
+        <a class="primary-btn" href="{{ url_for('ticket_detail', complaint_id=complaint_id) }}">View Ticket</a>
+        <a class="outline-btn" href="{{ url_for('register') }}">Register Another</a>
+    </div>
+</div>
+{% endblock %}

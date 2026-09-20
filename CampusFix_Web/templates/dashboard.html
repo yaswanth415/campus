@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <div class="eyebrow">● LIVE ACROSS 6 CAMPUS BUILDINGS</div>
+        <h1>EVERY SQUEAK, LEAK,<br>AND <span>FLICKER</span> —<br>LOGGED, TRACKED,<br>FIXED.</h1>
+        <p>CampusFix turns scattered maintenance complaints into a single work-order board — from the moment a student reports a broken fan to the day a technician closes the ticket.</p>
+        <div class="hero-buttons">
+            <a class="primary-btn" href="{{ url_for('tickets') }}">Open the Console</a>
+            <a class="outline-btn" href="{{ url_for('register') }}">Report an Issue →</a>
+        </div>
+    </div>
+
+    <div class="campus-map">
+        <div class="map-box b1"><b>Block A · Rm 204</b><small>● Fan not working</small></div>
+        <div class="map-box b2"><b>Library</b><small>● Wi-Fi down</small></div>
+        <div class="map-box b3"><b>Computer Lab</b><small>● Projector fault</small></div>
+        <div class="map-box b4"><b>Block C · Rm 118</b><small>● Tap leakage</small></div>
+        <div class="map-line l1"></div><div class="map-line l2"></div><div class="map-dot d1"></div><div class="map-dot d2"></div>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat"><strong>{{ total }}</strong><span>Total complaints</span></div>
+    <div class="stat"><strong>{{ pending }}</strong><span>Pending</span></div>
+    <div class="stat"><strong>{{ progress }}</strong><span>In progress</span></div>
+    <div class="stat"><strong>{{ resolved }}</strong><span>Resolved</span></div>
+</section>
+
+<section class="info-grid">
+    <div class="info-card">
+        <span>Most common category</span>
+        <strong>{{ common }}</strong>
+    </div>
+    <div class="info-card">
+        <span>Most reported building</span>
+        <strong>{{ building }}</strong>
+    </div>
+    <div class="info-card">
+        <span>Workflow</span>
+        <strong>Report → Track → Repair</strong>
+    </div>
+</section>
+{% endblock %}

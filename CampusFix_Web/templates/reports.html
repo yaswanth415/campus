@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Reports & Analysis{% endblock %}
+{% block content %}
+<div class="section-head">
+    <div>
+        <h2>REPORTS & ANALYSIS</h2>
+        <p>Pandas calculates the metrics from SQLite; Matplotlib renders the charts live.</p>
+    </div>
+    {% if session.get('admin_logged_in') %}
+    <a class="outline-btn" href="{{ url_for('export_csv') }}">⇩ Export tickets to CSV</a>
+    {% endif %}
+</div>
+
+<div class="metric-grid">
+    <div class="metric"><strong>{{ total }}</strong><span>Total complaints</span></div>
+    <div class="metric"><strong>{{ pending }}</strong><span>Pending</span></div>
+    <div class="metric"><strong>{{ progress }}</strong><span>In progress</span></div>
+    <div class="metric"><strong>{{ resolved }}</strong><span>Resolved</span></div>
+    <div class="metric"><strong>₹{{ "%.0f"|format(total_cost) }}</strong><span>Total maintenance cost</span></div>
+    <div class="metric"><strong>₹{{ "%.0f"|format(avg_cost) }}</strong><span>Average repair cost</span></div>
+    <div class="metric"><strong>{{ common }}</strong><span>Most common category</span></div>
+    <div class="metric"><strong>{{ top_building }}</strong><span>Most reported building</span></div>
+</div>
+
+<div class="chart-grid">
+    <div class="chart-card"><h3>COMPLAINTS BY CATEGORY</h3><img src="{{ url_for('chart', kind='category') }}"></div>
+    <div class="chart-card"><h3>STATUS DISTRIBUTION</h3><img src="{{ url_for('chart', kind='status') }}"></div>
+    <div class="chart-card"><h3>COMPLAINTS BY BUILDING</h3><img src="{{ url_for('chart', kind='building') }}"></div>
+    <div class="chart-card"><h3>COMPLAINTS REPORTED PER MONTH</h3><img src="{{ url_for('chart', kind='monthly') }}"></div>
+    <div class="chart-card wide"><h3>REPAIR COST BY CATEGORY</h3><img src="{{ url_for('chart', kind='cost') }}"></div>
+</div>
+{% endblock %}

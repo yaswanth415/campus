@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal - CampusFix</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #071827;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 70px auto;
+        }
+
+        .card {
+            background: #102a40;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(76, 201, 232, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4cc9e8;
+        }
+
+        p {
+            text-align: center;
+            color: #c7d7e6;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #4cc9e8;
+            color: #071827;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .error {
+            background: #8b2635;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4cc9e8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🎓 Student Portal</h1>
+
+        <p>
+            Track your campus maintenance complaint
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% for category, message in messages %}
+
+                <div class="{{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endwith %}
+
+
+        <form method="POST"
+              action="{{ url_for('student_track') }}">
+
+            <label>
+                Complaint ID
+            </label>
+
+            <input
+                type="text"
+                name="complaint_id"
+                placeholder="Example: CMP001"
+                required
+            >
+
+
+            <label>
+                Student Name
+            </label>
+
+            <input
+                type="text"
+                name="student_name"
+                placeholder="Enter your name"
+                required
+            >
+
+
+            <button type="submit">
+                🔍 Track Complaint
+            </button>
+
+        </form>
+
+
+        <a class="home"
+           href="{{ url_for('dashboard') }}">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

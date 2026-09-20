@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Maintenance Details{% endblock %}
+{% block content %}
+<div class="section-head">
+    <div>
+        <h2>ADD MAINTENANCE DETAILS</h2>
+        <p>{{ complaint['complaint_id'] }} · {{ complaint['problem'] }}</p>
+    </div>
+</div>
+
+<form class="form-card narrow" method="post">
+    <label>Maintenance Staff Name
+        <input name="staff_name" placeholder="e.g. Amit" required>
+    </label>
+    <label>Repair Date
+        <input type="date" name="repair_date" value="{{ today|default('') }}" required>
+    </label>
+    <label>Repair Cost (₹)
+        <input type="number" name="cost" min="0" step="0.01" placeholder="500" required>
+    </label>
+    <label>Repair Remarks
+        <textarea name="remarks" rows="5" placeholder="e.g. Fan capacitor replaced"></textarea>
+    </label>
+    <div class="form-footer">
+        <button class="primary-btn" type="submit">Save Maintenance</button>
+        <a class="outline-btn" href="{{ url_for('admin_panel') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

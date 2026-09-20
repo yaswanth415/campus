@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Track Complaint - CampusFix</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #071827;
+            color: white;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: #102a40;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 18px;
+        }
+
+        h1 {
+            color: #4cc9e8;
+        }
+
+        h2 {
+            color: #ffffff;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 20px;
+            background: #3e93b4;
+            font-weight: bold;
+        }
+
+        .resolved {
+            background: #55a86b;
+        }
+
+        .pending {
+            background: #e15b3d;
+        }
+
+        .progress {
+            background: #f2aa3b;
+            color: #111;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #28506b;
+        }
+
+        .label {
+            color: #9eb6c8;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .maintenance {
+            background: #0c2235;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #4cc9e8;
+            text-decoration: none;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: #4cc9e8;
+            color: #071827;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    {% if complaint %}
+
+        <div class="card">
+
+            <h1>
+                🎓 Complaint Tracking
+            </h1>
+
+            <h2>
+                {{ complaint["complaint_id"] }}
+            </h2>
+
+            {% if complaint["status"] == "Resolved" %}
+
+                <span class="status resolved">
+                    ✓ Resolved
+                </span>
+
+            {% elif complaint["status"] == "In Progress" %}
+
+                <span class="status progress">
+                    🔧 In Progress
+                </span>
+
+            {% else %}
+
+                <span class="status pending">
+                    ⏳ Pending
+                </span>
+
+            {% endif %}
+
+            <div class="row">
+                <span class="label">
+                    Student
+                </span>
+
+                <span class="value">
+                    {{ complaint["student_name"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Department
+                </span>
+
+                <span class="value">
+                    {{ complaint["department"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Building
+                </span>
+
+                <span class="value">
+                    {{ complaint["building"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Room
+                </span>
+
+                <span class="value">
+                    {{ complaint["room_no"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Category
+                </span>
+
+                <span class="value">
+                    {{ complaint["category"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Problem
+                </span>
+
+                <span class="value">
+                    {{ complaint["problem"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Priority
+                </span>
+
+                <span class="value">
+                    {{ complaint["priority"] }}
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="label">
+                    Submitted Date
+                </span>
+
+                <span class="value">
+                    {{ complaint["date"] }}
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                🔧 Maintenance Updates
+            </h2>
+
+            {% if maintenance %}
+
+                {% for item in maintenance %}
+
+                    <div class="maintenance">
+
+                        <div class="row">
+
+                            <span class="label">
+                                Staff
+                            </span>
+
+                            <span class="value">
+                                {{ item["staff_name"] }}
+                            </span>
+
+                        </div>
+
+                        <div class="row">
+
+                            <span class="label">
+                                Repair Date
+                            </span>
+
+                            <span class="value">
+                                {{ item["repair_date"] }}
+                            </span>
+
+                        </div>
+
+                        <div class="row">
+
+                            <span class="label">
+                                Cost
+                            </span>
+
+                            <span class="value">
+                                ₹{{ "%.2f"|format(item["cost"]) }}
+                            </span>
+
+                        </div>
+
+                        <div class="row">
+
+                            <span class="label">
+                                Remarks
+                            </span>
+
+                            <span class="value">
+                                {{ item["remarks"] or "No remarks" }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    No maintenance update has been added yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <a class="back"
+           href="{{ url_for('student_portal') }}">
+
+            ← Track Another Complaint
+
+        </a>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

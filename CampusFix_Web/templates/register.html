@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Register Complaint{% endblock %}
+{% block content %}
+<div class="section-head">
+    <div>
+        <h2>REGISTER A COMPLAINT</h2>
+        <p>Fill in the details below — a ticket ID is generated automatically.</p>
+    </div>
+    <span class="stamp">NEW TICKET</span>
+</div>
+
+<form class="form-card" method="post">
+    <div class="form-grid">
+        <label>Student Name
+            <input name="student_name" value="{{ student_name|default('') }}" placeholder="e.g. Rahul Sharma" required>
+        </label>
+        <label>Department
+            <select name="department" required>
+                <option value="">Select department</option>
+                {% for d in ['CSE','CSE (AI)','ECE','BCA','BBA','MBA','Other'] %}
+                <option {% if department|default('') == d %}selected{% endif %}>{{ d }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Building
+            <select name="building" required>
+                <option value="">Select building</option>
+                {% for b in ['Block A','Block B','Block C','Computer Lab','Library','Hostel Block'] %}
+                <option {% if building|default('') == b %}selected{% endif %}>{{ b }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Room No.
+            <input name="room_no" value="{{ room_no|default('') }}" placeholder="e.g. 204" required>
+        </label>
+        <label>Category
+            <select name="category" required>
+                <option value="">Select category</option>
+                {% for c in ['Electrical','Furniture','Plumbing','IT','Internet','Cleaning','AC/Cooling','Other'] %}
+                <option {% if category|default('') == c %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Priority
+            <select name="priority" required>
+                <option value="">Select priority</option>
+                {% for p in ['Low','Medium','High'] %}
+                <option {% if priority|default('') == p %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <label>Problem Description
+        <textarea name="problem" rows="5" placeholder="Describe what's wrong, e.g. 'Ceiling fan makes a loud noise and doesn't reach full speed.'" required>{{ problem|default('') }}</textarea>
+    </label>
+
+    <div class="form-footer">
+        <button class="primary-btn" type="submit">Register complaint</button>
+        <span>Date and ticket ID are assigned automatically on submit.</span>
+    </div>
+</form>
+{% endblock %}

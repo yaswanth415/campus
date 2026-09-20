@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ complaint['complaint_id'] }}{% endblock %}
+{% block content %}
+<div class="section-head">
+    <div>
+        <h2>{{ complaint['complaint_id'] }}</h2>
+        <p>Complaint details and current status.</p>
+    </div>
+    <span class="status {{ complaint['status']|replace(' ','-')|lower }}">{{ complaint['status'] }}</span>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-card">
+        <h3>Complaint</h3>
+        <div class="detail-list">
+            <div><span>Student</span><b>{{ complaint['student_name'] }}</b></div>
+            <div><span>Department</span><b>{{ complaint['department'] }}</b></div>
+            <div><span>Building / Room</span><b>{{ complaint['building'] }} · {{ complaint['room_no'] }}</b></div>
+            <div><span>Category</span><b>{{ complaint['category'] }}</b></div>
+            <div><span>Priority</span><b>{{ complaint['priority'] }}</b></div>
+            <div><span>Date</span><b>{{ complaint['date'] }}</b></div>
+        </div>
+        <div class="problem-box">{{ complaint['problem'] }}</div>
+    </div>
+
+    <div class="detail-card">
+        <h3>Maintenance</h3>
+        {% if maintenance %}
+            {% for m in maintenance %}
+            <div class="maintenance-item">
+                <b>{{ m['staff_name'] }}</b>
+                <span>{{ m['repair_date'] }} · ₹{{ "%.2f"|format(m['cost']) }}</span>
+                <p>{{ m['remarks'] or 'No remarks added.' }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="muted">No maintenance details have been added yet.</p>
+        {% endif %}
+
+        {% if session.get('admin_logged_in') %}
+            <a class="primary-btn" href="{{ url_for('add_maintenance', complaint_id=complaint['complaint_id']) }}">Add Maintenance</a>
+        {% else %}
+            <p class="admin-note">Only the administrator can update status or add maintenance details.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

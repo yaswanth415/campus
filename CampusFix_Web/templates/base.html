@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CampusFix{% endblock %} — Maintenance Control System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" href="{{ url_for('dashboard') }}">
+        <span class="logo">CF</span>
+        <span>
+            <strong>CampusFix</strong>
+            <small>MAINTENANCE CONTROL SYSTEM</small>
+        </span>
+    </a>
+
+    <nav class="nav">
+        <a class="{% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="{% if request.endpoint == 'register' %}active{% endif %}" href="{{ url_for('register') }}">Register</a>
+        <a class="{% if request.endpoint in ['tickets','ticket_detail'] %}active{% endif %}" href="{{ url_for('tickets') }}">All Tickets</a>
+        <a class="{% if request.endpoint == 'reports' %}active{% endif %}" href="{{ url_for('reports') }}">Reports</a>
+    </nav>
+
+    <div class="top-actions">
+        {% if session.get('admin_logged_in') %}
+            <a class="admin-chip" href="{{ url_for('admin_panel') }}">Admin Panel</a>
+            <a class="ghost-btn" href="{{ url_for('admin_logout') }}">Logout</a>
+        {% else %}
+            <a class="admin-chip" href="{{ url_for('admin_login') }}">Admin Login</a>
+        {% endif %}
+        <a class="report-btn" href="{{ url_for('register') }}">+ Report an Issue</a>
+    </div>
+</header>
+
+<main class="page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    CampusFix · Complaint & Maintenance Tracking
+</footer>
+</body>
+</html>
